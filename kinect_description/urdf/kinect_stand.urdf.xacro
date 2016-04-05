@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<robot name="kinect_stand" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:arg name="gazebo" default="false"/>
+
+    <!-- Stand URDF -->
+    <xacro:include filename="$(find kinect_description)/urdf/stand/stand.urdf.xacro">
+        <xacro:arg name="gazebo" value="${gazebo}"/>
+    </xacro:include>
+
+    <!-- Kinect URDF -->
+    <xacro:include filename="$(find kinect_description)/urdf/kinect/kinect.xacro">
+        <xacro:arg name="gazebo" value="${gazebo}"/>
+    </xacro:include>
+    <xacro:sensor_kinect prefix="/"
+                         name="kinect"
+                         parent="head_link"
+                         cam_px="0.0"
+                         cam_py="0.0"
+                         cam_pz="0.0"
+                         cam_or="0.0"
+                         cam_op="0.0"
+                         cam_oy="0.0"/>
+
+</robot>

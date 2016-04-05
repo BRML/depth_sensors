@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<robot name="stand" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- ros_control plugin -->
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/kinect</robotNamespace>
+        </plugin>
+    </gazebo>
+
+    <!-- Gazebo-Specific Link Properties -->
+    <gazebo reference="foot_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="stand_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+</robot>

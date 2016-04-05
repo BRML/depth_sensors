@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+
+<robot name="stand" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:arg name="gazebo" default="false"/>
+    <xacro:if value="$(arg gazebo)">
+        <!-- Gazebo Tags -->
+        <xacro:include filename="$(find kinect_description)/urdf/stand/stand.gazebo.xacro"/>
+    </xacro:if>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <link name="stand_base"/>
+
+    <joint name="base_joint" type="fixed">
+        <parent link="stand_base"/>
+        <child link="foot_link"/>
+    </joint>
+
+    <link name="foot_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.05" radius=".3"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder length="0.05" radius=".3"/>
+            </geometry>
+            <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+        </collision>
+
+        <inertial>
+            <mass value="38.17"/>
+            <inertia ixx="0.86678" ixy="0.0" ixz="0.0"
+                     iyy="0.86678" iyz="0.0"
+                     izz="1.71766"/>
+        </inertial>
+    </link>
+
+    <joint name="foot_joint" type="fixed">
+        <parent link="foot_link"/>
+        <child link="stand_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="stand_link">
+        <visual>
+            <geometry>
+                <cylinder length="1.5" radius=".03"/>
+            </geometry>
+            <origin xyz="0 0 0.75" rpy="0 0 0"/>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder length="1.5" radius=".03"/>
+            </geometry>
+            <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+        </collision>
+
+        <inertial>
+            <mass value="11.4511"/>
+            <inertia ixx="2.149658" ixy="0.0" ixz="0.0"
+                     iyy="2.149658" iyz="0.0"
+                     izz="0.005153"/>
+        </inertial>
+    </link>
+
+    <joint name="head_joint" type="fixed">
+        <parent link="stand_link"/>
+        <child link="head_link"/>
+        <origin xyz="0 0 1.5" rpy="0 0 3.14"/>
+    </joint>
+
+    <link name="head_link"/>
+</robot>
