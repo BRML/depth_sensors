@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+    <name>depth_sensors</name>
+    <version>0.0.0</version>
+    <description>
+        URDF and meshes describing the Kinect V2 and Senz3d depth sensors.
+    </description>
+
+    <maintainer email="ludersdorfer@fortiss.org">
+        Marvin Ludersdorfer
+    </maintainer>
+    <license>BSD</license>
+    <url type="repository">https://github.com/brml/depth_sensors</url>
+    <url type="bugtracker">https://github.com/brml/depth_sensors/issues</url>
+    <author email="ludersdorfer@fortiss.org">Marvin Ludersdorfer</author>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <export>
+        <metapackage/>
+    </export>
+
+</package>
