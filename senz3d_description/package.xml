@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <package>
-    <name>depth_sensors</name>
+    <name>senz3d_description</name>
     <version>0.0.0</version>
     <description>
-        URDF and meshes describing the Kinect V2 and Senz3d depth sensors.
+        Description of Senz3d sensor.
+        This package contains the URDF and meshes describing the Senz3d web
+        camera.
     </description>
 
     <maintainer email="ludersdorfer@fortiss.org">
@@ -15,11 +17,5 @@
     <author>Marvin Ludersdorfer</author>
 
     <buildtool_depend>catkin</buildtool_depend>
-
-    <run_depend>senz3d_description</run_depend>
-
-    <export>
-        <metapackage/>
-    </export>
 
 </package>
