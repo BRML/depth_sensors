@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 
 <robot name="kinect_stand" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
+    <xacro:property name="PI" value="3.1415926535897931"/>
     <xacro:arg name="gazebo" default="false"/>
 
     <!-- Stand URDF -->
@@ -15,12 +15,12 @@
     </xacro:include>
     <xacro:sensor_kinect prefix="/"
                          name="kinect"
-                         parent="head_link"
+                         parent="sensor_link"
                          cam_px="0.0"
-                         cam_py="0.0"
+                         cam_py="0.015"
                          cam_pz="0.0"
                          cam_or="0.0"
-                         cam_op="0.0"
+                         cam_op="${7*PI/180}"
                          cam_oy="0.0"/>
 
 </robot>

@@ -6,77 +6,72 @@
         <!-- Gazebo Tags -->
         <xacro:include filename="$(find kinect_description)/urdf/stand/stand.gazebo.xacro"/>
     </xacro:if>
+    <xacro:include filename="$(find kinect_description)/urdf/stand/properties.xacro"/>
+    <xacro:include filename="$(find kinect_description)/urdf/stand/materials.xacro"/>
+    <xacro:include filename="$(find kinect_description)/urdf/stand/macros.xacro"/>
 
-    <material name="black">
-        <color rgba="0 0 0 1"/>
-    </material>
-
-    <link name="stand_base"/>
+    <link name="footprint"/>
 
     <joint name="base_joint" type="fixed">
-        <parent link="stand_base"/>
-        <child link="foot_link"/>
+        <parent link="footprint"/>
+        <child link="foot"/>
     </joint>
 
-    <link name="foot_link">
+    <link name="foot">
         <visual>
+            <origin xyz="0 0 ${footHeight/2}" rpy="0 0 0"/>
             <geometry>
-                <cylinder length="0.05" radius=".3"/>
+                <cylinder length="${footHeight}" radius="${footRadius}"/>
             </geometry>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
             <material name="black"/>
         </visual>
-
         <collision>
+            <origin xyz="0 0 ${footHeight/2}" rpy="0 0 0"/>
             <geometry>
-                <cylinder length="0.05" radius=".3"/>
+                <cylinder length="${footHeight}" radius="${footRadius}"/>
             </geometry>
             <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
         </collision>
-
         <inertial>
-            <mass value="38.17"/>
-            <inertia ixx="0.86678" ixy="0.0" ixz="0.0"
-                     iyy="0.86678" iyz="0.0"
-                     izz="1.71766"/>
+            <mass value="${footMass}"/>
+            <cylinder_inertia m="${footMass}"
+                              r="${footRadius}" h="${footHeight}"/>
         </inertial>
     </link>
 
     <joint name="foot_joint" type="fixed">
-        <parent link="foot_link"/>
-        <child link="stand_link"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="foot"/>
+        <child link="stand"/>
+        <origin xyz="0 0 ${footHeight}" rpy="0 0 0"/>
     </joint>
 
-    <link name="stand_link">
+    <link name="stand">
         <visual>
+            <origin xyz="0 0 ${standHeight/2}" rpy="0 0 0"/>
             <geometry>
-                <cylinder length="1.5" radius=".03"/>
+                <cylinder length="${standHeight}" radius="${standRadius}"/>
             </geometry>
-            <origin xyz="0 0 0.75" rpy="0 0 0"/>
             <material name="black"/>
         </visual>
-
         <collision>
+            <origin xyz="0 0 ${footHeight/2+standHeight/2}" rpy="0 0 0"/>
             <geometry>
-                <cylinder length="1.5" radius=".03"/>
+                <cylinder length="${standHeight}" radius="${standRadius}"/>
             </geometry>
             <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
         </collision>
-
         <inertial>
-            <mass value="11.4511"/>
-            <inertia ixx="2.149658" ixy="0.0" ixz="0.0"
-                     iyy="2.149658" iyz="0.0"
-                     izz="0.005153"/>
+            <mass value="${standMass}"/>
+            <cylinder_inertia m="${standMass}"
+                              r="${standRadius}" h="${standHeight}"/>
         </inertial>
     </link>
 
-    <joint name="head_joint" type="fixed">
-        <parent link="stand_link"/>
-        <child link="head_link"/>
-        <origin xyz="0 0 1.5" rpy="0 0 3.14"/>
+    <joint name="sensor_joint" type="fixed">
+        <parent link="stand"/>
+        <child link="sensor_link"/>
+        <origin xyz="0 0 ${footHeight+standHeight}" rpy="0 0 ${PI}"/>
     </joint>
 
-    <link name="head_link"/>
+    <link name="sensor_link"/>
 </robot>

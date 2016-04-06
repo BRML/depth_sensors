@@ -9,11 +9,11 @@
     </gazebo>
 
     <!-- Gazebo-Specific Link Properties -->
-    <gazebo reference="foot_link">
+    <gazebo reference="foot">
         <material>Gazebo/Black</material>
     </gazebo>
 
-    <gazebo reference="stand_link">
+    <gazebo reference="stand">
         <material>Gazebo/Black</material>
     </gazebo>
 </robot>
