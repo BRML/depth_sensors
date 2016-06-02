@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+    <arg name="load_kinect_description" default="true"/>
+    <arg name="x" default="0.0"/>
+    <arg name="y" default="0.0"/>
+    <arg name="z" default="0.0"/>
+
+    <param if="$(arg load_kinect_description)"
+           name="robot_description"
+           command="$(find xacro)/xacro.py
+                    --inorder $(find kinect_description)/urdf/kinect_stand.urdf.xacro
+                    gazebo:=true"/>
+
+    <!-- Publish a static transform between the world and the base of the kinect -->
+    <node pkg="tf2_ros" type="static_transform_publisher"
+          name="foot_to_world"
+          args="$(arg x) $(arg y) $(arg z) 0 0 0 1 world footprint"/>
+
+    <!-- Spawn the kinect sensor -->
+    <node name="kinect_urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+          respawn="false" output="screen"
+          args="-param robot_description -urdf
+                -x $(arg x)
+                -y $(arg y)
+                -z $(arg z)
+                -model kinect_stand"/>
+
+
+    <!-- Load joint controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find kinect_control)/config/kinect_control.yaml"
+              command="load"/>
+
+    <!-- Load the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner"
+          respawn="false" output="screen"
+          args="--shutdown-timeout -1 joint_state_controller">
+    </node>
+
+    <!-- Convert joint states to TF transforms -->
+    <node name="kinect_state_publisher" pkg="robot_state_publisher"
+          type="robot_state_publisher">
+    </node>
+</launch>
