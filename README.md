@@ -15,6 +15,7 @@ and the Senz3d depth sensors.
 |   +-- config/
 |
 +-- kinect_description/        URDF and meshes describing the Kinect sensor and the stand
+|   +-- launch/
 |   +-- meshes/sensors/
 |   +-- urdf/
 |       +-- kinect/
