@@ -100,11 +100,11 @@
                     <cameraName>${name}</cameraName>
                     <alwaysOn>true</alwaysOn>
                     <updateRate>30.0</updateRate>
-                    <imageTopicName>ir/image</imageTopicName>
-                    <depthImageTopicName>depth/image</depthImageTopicName>
-                    <pointCloudTopicName>depth/points</pointCloudTopicName>
-                    <cameraInfoTopicName>ir/camera_info</cameraInfoTopicName>
-                    <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+                    <imageTopicName>sd/image_ir_rect</imageTopicName>
+                    <depthImageTopicName>sd/image_depth_rect</depthImageTopicName>
+                    <pointCloudTopicName>sd/points</pointCloudTopicName>
+                    <cameraInfoTopicName>sd/camera_info</cameraInfoTopicName>
+                    <!--<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>-->
                     <frameName>${name}_depth_optical_frame</frameName>
                     <pointCloudCutoff>0.5</pointCloudCutoff>
                     <pointCloudCutoffMax>4.5</pointCloudCutoffMax>
@@ -147,8 +147,8 @@
                     <alwaysOn>true</alwaysOn>
                     <update_rate>30.0</update_rate>
                     <cameraName>${name}</cameraName>
-                    <imageTopicName>rgb/image</imageTopicName>
-                    <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+                    <imageTopicName>hd/image_color_rect</imageTopicName>
+                    <cameraInfoTopicName>hd/camera_info</cameraInfoTopicName>
                     <frameName>${name}_rgb_optical_frame</frameName>
                     <baseline>0.1</baseline>
                     <distortionK1>0.0</distortionK1>
