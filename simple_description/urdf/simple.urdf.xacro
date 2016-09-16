@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+
+<robot name="simple_camera" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <link name="base">
+        <visual>
+            <geometry>
+                <box size=".1 .05 .1"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="black">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+
+        <collision>
+            <geometry>
+                <box size=".1 .05 .1"/>
+            </geometry>
+            <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+        </collision>
+
+        <inertial>
+            <mass value="1.0"/>
+            <inertia ixx="1" ixy="0.0" ixz="0.0"
+                     iyy="1" iyz="0.0"
+                     izz="1"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="base">
+        <sensor name="color_camera" type="camera">
+            <always_on>true</always_on>
+            <update_rate>30.0</update_rate>
+            <camera name="color_camera">
+                <horizontal_fov>${70.0*3.14/180.0}</horizontal_fov>
+                <image>
+                    <width>1920</width>
+                    <height>1080</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.5</near>
+                    <far>4.5</far>
+                </clip>
+                <noise>
+                    <!-- Noise is sampled independently per pixel on each frame.
+                    That pixel's noise value is added to each of its color
+                    channels, which at that point lie in the range [0,1]. -->
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <plugin name="color_camera_controller"
+                    filename="libgazebo_ros_camera.so">
+                <alwaysOn>true</alwaysOn>
+                <update_rate>30.0</update_rate>
+                <cameraName>color</cameraName>
+                <imageTopicName>hd/image_color_rect</imageTopicName>
+                <cameraInfoTopicName>hd/camera_info</cameraInfoTopicName>
+                <frameName>base</frameName>
+                <baseline>0.1</baseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2>
+                <robotNamespace>camera</robotNamespace>
+            </plugin>
+        </sensor>
+    </gazebo>
+</robot>
