@@ -27,16 +27,58 @@
         </inertial>
     </link>
 
+    <!--<gazebo reference="base">-->
+        <!--<sensor name="color_camera" type="camera">-->
+            <!--<always_on>true</always_on>-->
+            <!--<update_rate>30.0</update_rate>-->
+            <!--<camera name="color_camera">-->
+                <!--<horizontal_fov>${70.0*3.14/180.0}</horizontal_fov>-->
+                <!--<image>-->
+                    <!--<width>1920</width>-->
+                    <!--<height>1080</height>-->
+                    <!--<format>R8G8B8</format>-->
+                <!--</image>-->
+                <!--<clip>-->
+                    <!--<near>0.5</near>-->
+                    <!--<far>4.5</far>-->
+                <!--</clip>-->
+                <!--<noise>-->
+                    <!--&lt;!&ndash; Noise is sampled independently per pixel on each frame.-->
+                    <!--That pixel's noise value is added to each of its color-->
+                    <!--channels, which at that point lie in the range [0,1]. &ndash;&gt;-->
+                    <!--<type>gaussian</type>-->
+                    <!--<mean>0.0</mean>-->
+                    <!--<stddev>0.007</stddev>-->
+                <!--</noise>-->
+            <!--</camera>-->
+            <!--<plugin name="color_camera_controller"-->
+                    <!--filename="libgazebo_ros_camera.so">-->
+                <!--<alwaysOn>true</alwaysOn>-->
+                <!--<update_rate>30.0</update_rate>-->
+                <!--<cameraName>color</cameraName>-->
+                <!--<imageTopicName>hd/image_color_rect</imageTopicName>-->
+                <!--<cameraInfoTopicName>hd/camera_info</cameraInfoTopicName>-->
+                <!--<frameName>base</frameName>-->
+                <!--<baseline>0.1</baseline>-->
+                <!--<distortionK1>0.0</distortionK1>-->
+                <!--<distortionK2>0.0</distortionK2>-->
+                <!--<distortionK3>0.0</distortionK3>-->
+                <!--<distortionT1>0.0</distortionT1>-->
+                <!--<distortionT2>0.0</distortionT2>-->
+                <!--<robotNamespace>camera</robotNamespace>-->
+            <!--</plugin>-->
+        <!--</sensor>-->
+    <!--</gazebo>-->
     <gazebo reference="base">
-        <sensor name="color_camera" type="camera">
+        <sensor name="depth_sensor" type="depth">
             <always_on>true</always_on>
             <update_rate>30.0</update_rate>
-            <camera name="color_camera">
+            <camera>
                 <horizontal_fov>${70.0*3.14/180.0}</horizontal_fov>
                 <image>
-                    <width>1920</width>
-                    <height>1080</height>
-                    <format>R8G8B8</format>
+                    <width>512</width>
+                    <height>424</height>
+                    <format>L8</format>
                 </image>
                 <clip>
                     <near>0.5</near>
@@ -48,17 +90,22 @@
                     channels, which at that point lie in the range [0,1]. -->
                     <type>gaussian</type>
                     <mean>0.0</mean>
-                    <stddev>0.007</stddev>
+                    <stddev>0.001</stddev>
                 </noise>
             </camera>
-            <plugin name="color_camera_controller"
-                    filename="libgazebo_ros_camera.so">
+            <plugin name="depth_sensor_controller"
+                    filename="libgazebo_ros_openni_kinect.so">
+                <cameraName>depth</cameraName>
                 <alwaysOn>true</alwaysOn>
-                <update_rate>30.0</update_rate>
-                <cameraName>color</cameraName>
-                <imageTopicName>hd/image_color_rect</imageTopicName>
-                <cameraInfoTopicName>hd/camera_info</cameraInfoTopicName>
+                <updateRate>30.0</updateRate>
+                <imageTopicName>sd/image_ir_rect</imageTopicName>
+                <depthImageTopicName>sd/image_depth_rect</depthImageTopicName>
+                <pointCloudTopicName>sd/points</pointCloudTopicName>
+                <cameraInfoTopicName>sd/camera_info</cameraInfoTopicName>
+                <!--<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>-->
                 <frameName>base</frameName>
+                <pointCloudCutoff>0.5</pointCloudCutoff>
+                <pointCloudCutoffMax>4.5</pointCloudCutoffMax>
                 <baseline>0.1</baseline>
                 <distortionK1>0.0</distortionK1>
                 <distortionK2>0.0</distortionK2>
