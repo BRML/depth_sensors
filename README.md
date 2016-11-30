@@ -25,3 +25,5 @@ and the Senz3d depth sensors.
 |   +-- meshes/sensors/
 |   +-- urdf/
 ```
+
+The sensor meshes (.dae files) and visualizations (.jpg and .png files) have been obtained from the [`turtlebot_description` package](https://github.com/turtlebot/turtlebot/tree/kinetic/turtlebot_description). 
